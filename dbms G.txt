@@ -1,0 +1,162 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mca
+Database changed
+mysql> create table dept(deptno int primary key not null,dname varchar(20),loc varchar(40));
+Query OK, 0 rows affected (1.72 sec)
+
+mysql> create table emp(empno int primary key,ename varchar(20),job varchar(40),mgr int,hiredate date,salary decimal(10,2),comm decimal(10,2),deptn int);
+ERROR 1050 (42S01): Table 'emp' already exists
+mysql> create table empp(empno int primary key,ename varchar(20),job varchar(40),mgr int,hiredate date,salary decimal(10,2),comm decimal(10,2),deptn int);
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> insert into dept values(1,'sales','tvm');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into dept values(2,'marketing','ekm');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into dept values(3,'accountant','ktm');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> create table empp(empno int primary key,ename varchar(20),job varchar(40),mgr int,hiredate date,salary decimal(10,2),comm decimal(10,2),deptn int);
+ERROR 1050 (42S01): Table 'empp' already exists
+mysql> insert into empp values(1,'john','developer',106,'2022-2-1',21000,NULL,1);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into empp values(100,'jeyson','tester',107,'2010-2-10',31000,NULL,2);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into empp values(101,'jayan','lead',108,'2015-2-15',28000,NULL,3);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into empp values(101,'jayan','manager',109,'2012-5-21',35000,NULL,4);
+ERROR 1062 (23000): Duplicate entry '101' for key 'empp.PRIMARY'
+mysql> select * from empp
+    -> ^C
+mysql> select * from empp;
++-------+--------+-----------+------+------------+----------+------+-------+
+| empno | ename  | job       | mgr  | hiredate   | salary   | comm | deptn |
++-------+--------+-----------+------+------------+----------+------+-------+
+|     1 | john   | developer |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   100 | jeyson | tester    |  107 | 2010-02-10 | 31000.00 | NULL |     2 |
+|   101 | jayan  | lead      |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
++-------+--------+-----------+------+------------+----------+------+-------+
+3 rows in set (0.11 sec)
+
+mysql> insert into empp values(102,'jeemon','manager',110,'2012-5-21',35000,NULL,4);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from empp;
++-------+--------+-----------+------+------------+----------+------+-------+
+| empno | ename  | job       | mgr  | hiredate   | salary   | comm | deptn |
++-------+--------+-----------+------+------------+----------+------+-------+
+|     1 | john   | developer |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   100 | jeyson | tester    |  107 | 2010-02-10 | 31000.00 | NULL |     2 |
+|   101 | jayan  | lead      |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
+|   102 | jeemon | manager   |  110 | 2012-05-21 | 35000.00 | NULL |     4 |
++-------+--------+-----------+------+------------+----------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+------+
+| deptno | dname      | loc  |
++--------+------------+------+
+|      1 | sales      | tvm  |
+|      2 | marketing  | ekm  |
+|      3 | accountant | ktm  |
++--------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> update empp set salary=salary*1.15 where datediff(current_date(),hiredate)>3650;
+Query OK, 2 rows affected (0.24 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> insert into empp values(105,'jagathan','head',115,'2009-5-21',40000,NULL,5);
+Query OK, 1 row affected (0.42 sec)
+
+mysql> update empp set salary=salary*1.15 where datediff(current_date(),hiredate)>3650;
+Query OK, 3 rows affected (0.05 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from empp;
++-------+----------+-----------+------+------------+----------+------+-------+
+| empno | ename    | job       | mgr  | hiredate   | salary   | comm | deptn |
++-------+----------+-----------+------+------------+----------+------+-------+
+|     1 | john     | developer |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   100 | jeyson   | tester    |  107 | 2010-02-10 | 40997.50 | NULL |     2 |
+|   101 | jayan    | lead      |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
+|   102 | jeemon   | manager   |  110 | 2012-05-21 | 46287.50 | NULL |     4 |
+|   105 | jagathan | head      |  115 | 2009-05-21 | 46000.00 | NULL |     5 |
++-------+----------+-----------+------+------------+----------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from empp where datediff(current_date(),hiredate)>10950;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from empp;
++-------+----------+-----------+------+------------+----------+------+-------+
+| empno | ename    | job       | mgr  | hiredate   | salary   | comm | deptn |
++-------+----------+-----------+------+------------+----------+------+-------+
+|     1 | john     | developer |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   100 | jeyson   | tester    |  107 | 2010-02-10 | 40997.50 | NULL |     2 |
+|   101 | jayan    | lead      |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
+|   102 | jeemon   | manager   |  110 | 2012-05-21 | 46287.50 | NULL |     4 |
+|   105 | jagathan | head      |  115 | 2009-05-21 | 46000.00 | NULL |     5 |
++-------+----------+-----------+------+------------+----------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from empp where datediff(current_date(),hiredate)>3650;
+Query OK, 3 rows affected (0.42 sec)
+
+mysql> select * from empp;
++-------+-------+-----------+------+------------+----------+------+-------+
+| empno | ename | job       | mgr  | hiredate   | salary   | comm | deptn |
++-------+-------+-----------+------+------------+----------+------+-------+
+|     1 | john  | developer |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   101 | jayan | lead      |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
++-------+-------+-----------+------+------------+----------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into empp values(107,'sasi','asst manager',110,'2015-5-22',32000,NULL,6);
+Query OK, 1 row affected (0.56 sec)
+
+mysql> insert into empp values(108,'sasi','salesmanager',110,'2017-5-22',18000,NULL,7);
+Query OK, 1 row affected (0.43 sec)
+
+mysql> select * from empp;
++-------+-------+--------------+------+------------+----------+------+-------+
+| empno | ename | job          | mgr  | hiredate   | salary   | comm | deptn |
++-------+-------+--------------+------+------------+----------+------+-------+
+|     1 | john  | developer    |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   101 | jayan | lead         |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
+|   107 | sasi  | asst manager |  110 | 2015-05-22 | 32000.00 | NULL |     6 |
+|   108 | sasi  | salesmanager |  110 | 2017-05-22 | 18000.00 | NULL |     7 |
++-------+-------+--------------+------+------------+----------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into empp values(102,'jeemon','manager',110,'2012-5-21',35000,NULL,4);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from empp;
++-------+--------+--------------+------+------------+----------+------+-------+
+| empno | ename  | job          | mgr  | hiredate   | salary   | comm | deptn |
++-------+--------+--------------+------+------------+----------+------+-------+
+|     1 | john   | developer    |  106 | 2022-02-01 | 21000.00 | NULL |     1 |
+|   101 | jayan  | lead         |  108 | 2015-02-15 | 28000.00 | NULL |     3 |
+|   102 | jeemon | manager      |  110 | 2012-05-21 | 35000.00 | NULL |     4 |
+|   107 | sasi   | asst manager |  110 | 2015-05-22 | 32000.00 | NULL |     6 |
+|   108 | sasi   | salesmanager |  110 | 2017-05-22 | 18000.00 | NULL |     7 |
++-------+--------+--------------+------+------------+----------+------+-------+
+5 rows in set (0.00 sec)
