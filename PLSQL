@@ -1,0 +1,114 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Tue Mar 5 22:38:32 2024
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Mon Mar 04 2024 12:06:16 -08:00
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> set serveroutput on
+SQL> begin
+  2  dbms_output.Put_line('hai');
+  3  end;
+  4  /
+hai
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL> declare
+  2
+  3      var1 varchar(10);
+  4         num1 int(30);
+  5         begin
+  6         var1:='hello';
+  7         num1:=100;
+  8         dbms_output.Put_line('var1:'||var1);
+  9         dbms_output.Put_line('Num1:'||num1);
+ 10        end;
+ 11       /
+var1:hello
+Num1:100
+
+PL/SQL procedure successfully completed.
+
+
+SQL> set serveroutput on
+SQL> CREATE OR REPLACE PROCEDURE greetings
+  2  AS
+  3  BEGIN
+  4  dbms_output.put_line('Hello World!');
+  5  END;
+  6  /
+
+Procedure created.
+
+SQL> execute greetings
+Hello World!
+
+PL/SQL procedure successfully completed.
+
+SQL> create table Employees(eid int,fname varchar(30),salary int);
+
+Table created.
+
+SQL> insert into Employees values(100,'ram',30000);
+
+1 row created.
+
+SQL> insert into Employees values(101,'sam',4000);
+
+1 row created.
+
+SQL>  declare
+  2      name varchar(10);
+  3      sal int(20);
+  4      begin
+  5      select fname,salary into name,sal from Employees where eid=100;
+  6      dbms_output.Put_line('Name:'||name);
+  7      dbms_output.Put_line('Salary:'||sal);
+  8      end;
+  9      /
+Name:ram
+Salary:30000
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2          name Employees.fname%TYPE;
+  3          sal Employees.salary%TYPE;
+  4          lname name%TYPE;
+  5          begin
+  6          select fname,salary into name,sal from Employees where eid=100;
+  7          dbms_output.Put_line('Name:'||name);
+  8          dbms_output.Put_line('Salary:'||sal);
+  9          end;
+ 10      /
+Name:ram
+Salary:30000
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL>  declare
+  2    num number := 6;
+  3    fact number := 1;
+  4    temp number;
+  5    begin
+  6    temp :=num;
+  7    while( temp>0 )
+  8    loop
+  9    fact := fact*temp;
+ 10    temp := temp-1;
+ 11   end loop;
+ 12    dbms_output.put_line('factorial of '|| num || ' is ' || fact);
+ 13    end;
+ 14    /
+factorial of 6 is 720
+
+PL/SQL procedure successfully completed.
