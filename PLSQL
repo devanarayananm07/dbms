@@ -341,9 +341,22 @@ y is largest
 PL/SQL procedure successfully completed.
 
 
-                         FUNCTIONS
-                         ________
+                        PROCEDURE
+                        _________
 
+SQL> CREATE OR REPLACE PROCEDURE welcome
+  2    AS
+  3    BEGIN
+  4       dbms_output.put_line('Hai!');
+  5    END;
+  6   /
+
+Procedure created.
+
+SQL> execute welcome
+Hai!
+
+PL/SQL procedure successfully completed.
 
 SQL> SET SERVEROUTPUT ON
 SQL> DECLARE
@@ -386,50 +399,39 @@ Square of (21): 441
 
 PL/SQL procedure successfully completed.
 
-SQL> DECLARE
-  2      a number;
-  3      b number;
-  4      c number;
-  5   PROCEDURE findMin(x IN number, y IN number, z OUT number) IS
-  6   BEGIN
-  7       IF x < y THEN
-  8         z:= x;
-  9      ELSE
- 10          z:= y;
- 11      END IF;
- 12    END;
- 13    BEGIN
- 14       a:= 31;
- 15       b:= 56;
- 16       findMin(a, b, c);
- 17      dbms_output.put_line(' Minimum of (31,56: ' || c);
- 18    END;
- 19   /
-Minimum of (31,56: 31
+SQL> create table dept1(eid int,ename varchar(20),psal int,ploc varchar(30));
 
-PL/SQL procedure successfully completed.
+Table created.
+SQL> CREATE OR REPLACE PROCEDURE addemp
+  2  (depid IN dept.eid%TYPE,
+  3  depname IN dept1.ename%TYPE,
+  4  depsal IN dept1.psal%TYPE,
+  5  deploc IN dept1.ploc%TYPE)
+  6  IS
+  7  BEGIN
+  8  INSERT INTO dept1 Values(depid,depname,depsal,deploc);
+  9  dbms_output.Put_line('dpmt added');
+ 10  end;
+ 11  /
 
-SQL> DECLARE
-  2       a number;
-  3    PROCEDURE squareNum(x IN OUT number) IS
-  4    BEGIN
-  5      x := x * x;
-  6    END;
-  7    BEGIN
-  8       a:= 21;
-  9       squareNum(a);
- 10       dbms_output.put_line(' Square of (21): ' || a);
- 11    END;
- 12    /
-Square of (21): 441
+Procedure created.
+
+execute addemp(2,'MARY',3000,'klm');
+
+dpmt added
 
 PL/SQL procedure successfully completed.
 
 
+SQL> select * from dept1;
+
+       EID ENAME                      PSAL PLOC
+---------- -------------------- ---------- ------------------------------
+         2 MARY                       3000 klm
 
 
-
-
+                         FUNCTIONS
+                         ________
 
 
 
