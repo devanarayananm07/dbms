@@ -1,0 +1,407 @@
+C:\Users\mlm>mongosh
+Current Mongosh Log ID: 65f85a0612e09086a18bf201
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.0
+Using MongoDB:          7.0.6
+Using Mongosh:          2.2.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-03-18T07:02:52.259-07:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+test> use student
+switched to db student
+student> show dbs
+admin   40.00 KiB
+config  96.00 KiB
+local   40.00 KiB
+student> db.createCollection("dbms")
+{ ok: 1 }
+student> show dbs
+admin     40.00 KiB
+config   108.00 KiB
+local     40.00 KiB
+student    8.00 KiB
+student> db.dbms.insertOne({"rollno":1,"name":"ram"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65f8608212e09086a18bf202')
+}
+student> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+student> show collections
+dbms
+student> db.dbms.find().pretty()
+[
+  { _id: ObjectId('65f8608212e09086a18bf202'), rollno: 1, name: 'ram' }
+]
+student> show collections
+dbms
+student> db.dbms.find().pretty()
+[
+  { _id: ObjectId('65f8608212e09086a18bf202'), rollno: 1, name: 'ram' }
+]
+student> db.dbms.updateOne({"rollno":1},{$set:{name:"sam"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+student> db.dbms.drop()
+true
+student> shoe collections
+Uncaught:
+SyntaxError: Missing semicolon. (1:4)
+
+> 1 | shoe collections
+    |     ^
+  2 |
+
+student> show collections
+
+student> show Collections
+MongoshInvalidInputError: [COMMON-10001] 'Collections' is not a valid argument for "show".
+student> show collections
+
+student> db.dropDatabase()
+{ ok: 1, dropped: 'student' }
+student> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+student> use admin
+switched to db admin
+admin> use school
+switched to db school
+school> use univ
+switched to db univ
+univ> db.dropDatabase()
+{ ok: 1, dropped: 'univ' }
+univ> use school
+switched to db school
+school> db.dropDatabase()
+{ ok: 1, dropped: 'school' }
+school> use dbms
+switched to db dbms
+dbms> db
+dbms
+dbms> db.createCollections("marklist")
+TypeError: db.createCollections is not a function
+dbms> db.createCollection("marklist")
+{ ok: 1 }
+dbms> show collections
+marklist
+dbms> db.createCollection("parentdetails")
+{ ok: 1 }
+dbms> show collections
+marklist
+parentdetails
+dbms> db
+dbms
+dbms> db.marklist.drop()
+true
+dbms> show collections
+parentdetails
+dbms> db.parentdetails.drop()
+true
+dbms> show collections
+
+dbms> db.marklist.insert({sname:"ram",saddr:"kottayam",marks:"40",grade:"A"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f8649212e09086a18bf203') }
+}
+dbms> db.marklist.find()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.insert({sname:"sam",saddr:"kollam",marks:"30",grade:"B"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f8658212e09086a18bf204') }
+}
+dbms> db.marklist.find()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  }
+]
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  }
+]
+dbms> db.marklist.insert({sname:"jose",saddr:"plkd",marks:"50",grade:"A"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f865ba12e09086a18bf205') }
+}
+dbms> db.marklist.insert({sname:"sera",saddr:"kzhd",marks:"50",grade:"A"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f865d512e09086a18bf206') }
+}
+dbms> db.marklist.find()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('65f865ba12e09086a18bf205'),
+    sname: 'jose',
+    saddr: 'plkd',
+    marks: '50',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f865d512e09086a18bf206'),
+    sname: 'sera',
+    saddr: 'kzhd',
+    marks: '50',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('65f865ba12e09086a18bf205'),
+    sname: 'jose',
+    saddr: 'plkd',
+    marks: '50',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f865d512e09086a18bf206'),
+    sname: 'sera',
+    saddr: 'kzhd',
+    marks: '50',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.update({"saddr":"plkd"},{$set:{"saddr":"wynd"}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8649212e09086a18bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('65f865ba12e09086a18bf205'),
+    sname: 'jose',
+    saddr: 'wynd',
+    marks: '50',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f865d512e09086a18bf206'),
+    sname: 'sera',
+    saddr: 'kzhd',
+    marks: '50',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.remove({grade:"A"},1)
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 3 }
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  }
+]
+dbms> db.marklist.remove({grade:"A"})
+{ acknowledged: true, deletedCount: 0 }
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8658212e09086a18bf204'),
+    sname: 'sam',
+    saddr: 'kollam',
+    marks: '30',
+    grade: 'B'
+  }
+]
+dbms> db.marklist.remove({})
+{ acknowledged: true, deletedCount: 1 }
+dbms> db.marklist.find().pretty()
+
+dbms> db.marklist.insert({sname:"sera",saddr:"kzhd",marks:"50",grade:"A"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f8679d12e09086a18bf207') }
+}
+dbms> db.marklist.insert({sname:"jose",saddr:"plkd",marks:"20",grade:"c"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f867b112e09086a18bf208') }
+}
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8679d12e09086a18bf207'),
+    sname: 'sera',
+    saddr: 'kzhd',
+    marks: '50',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f867b112e09086a18bf208'),
+    sname: 'jose',
+    saddr: 'plkd',
+    marks: '20',
+    grade: 'c'
+  }
+]
+dbms> db.marklist.insert([{sname:"jose",saddr:"plkd",marks:"20",grade:"c"},{sname:"bibin",saddr:"idukki",marks:"40",grade:"B"},{sname:"gibin",saddr:"tvm",marks:"30",grade:"D"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65f86c1412e09086a18bf209'),
+    '1': ObjectId('65f86c1412e09086a18bf20a'),
+    '2': ObjectId('65f86c1412e09086a18bf20b')
+  }
+}
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f8679d12e09086a18bf207'),
+    sname: 'sera',
+    saddr: 'kzhd',
+    marks: '50',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f867b112e09086a18bf208'),
+    sname: 'jose',
+    saddr: 'plkd',
+    marks: '20',
+    grade: 'c'
+  },
+  {
+    _id: ObjectId('65f86c1412e09086a18bf209'),
+    sname: 'jose',
+    saddr: 'plkd',
+    marks: '20',
+    grade: 'c'
+  },
+  {
+    _id: ObjectId('65f86c1412e09086a18bf20a'),
+    sname: 'bibin',
+    saddr: 'idukki',
+    marks: '40',
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('65f86c1412e09086a18bf20b'),
+    sname: 'gibin',
+    saddr: 'tvm',
+    marks: '30',
+    grade: 'D'
+  }
+]
+dbms>
